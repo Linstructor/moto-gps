@@ -9,7 +9,7 @@
 #include <exception>
 #include "I2C.h"
 
-I2C::I2C(int scl, int sda) {
+I2C::I2C(int scl, int sda, uint8_t addresse) {
     gpio_set_function(scl, GPIO_FUNC_I2C);
     gpio_set_function(sda, GPIO_FUNC_I2C);
 
@@ -20,16 +20,25 @@ I2C::I2C(int scl, int sda) {
 
     this->sclPin = scl;
     this->sdaPin = sda;
+    this->addresse = addresse;
 }
 
-void I2C::reset(uint8_t addresse) {
-    int res = i2c_write_timeout_us(i2c0, addresse, 0x00, 1, true, 50000);
+void I2C::write(uint8_t data, int length) {
+    i2c_write_blocking(i2c_default, this->addresse, &data, length, true);
+}
 
-    if (res == PICO_ERROR_TIMEOUT) {
-        printf("PICO_ERROR_TIMEOUT\n");
-    } else if (res == PICO_ERROR_GENERIC) {
-        printf("PICO_ERROR_GENERIC\n");
-    } else {
-        printf("%i\n", res);
-    }
+void I2C::read(int16_t *accel, int16_t *gyro) {
+    uint8_t buffer[6];
+
+    // Start reading acceleration registers from register 0x3B for 6 bytes
+    uint8_t val = 0x3B;
+    i2c_write_blocking(i2c_default, this->addresse, &val, 1, true); // true to keep master control of bus
+    i2c_read_blocking(i2c_default, this->addresse, buffer, 6, false);
+
+    // Now gyro data from reg 0x43 for 6 bytes
+    // The register is auto incrementing on each read
+    val = 0x43;
+    i2c_write_blocking(i2c_default, this->addresse, &val, 1, true);
+    i2c_read_blocking(i2c_default, this->addresse, buffer, 6, false);  // False - finished with bus
+
 }

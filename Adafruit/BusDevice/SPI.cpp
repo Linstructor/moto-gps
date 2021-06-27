@@ -3,7 +3,6 @@
 //
 
 #include "SPI.h"
-#include <hardware/spi.h>
 #include <hardware/gpio.h>
 
 SPI::SPI(spi_inst_t *instance, int sck, int miso, int mosi, int cs) {
@@ -14,6 +13,7 @@ SPI::SPI(spi_inst_t *instance, int sck, int miso, int mosi, int cs) {
     this->instance = instance;
 
     spi_init(instance, 400 * 1000);
+
     gpio_set_function(mosi, GPIO_FUNC_SPI);
     gpio_set_function(sck, GPIO_FUNC_SPI);
     gpio_set_function(miso, GPIO_FUNC_SPI);
