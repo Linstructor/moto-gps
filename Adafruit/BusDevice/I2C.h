@@ -7,14 +7,15 @@
 
 class I2C {
 public:
-    I2C(int scl, int sda, uint8_t addresse);
+    I2C(int scl, int sda, uint8_t addresse, i2c_inst_t *instance);
     void write(uint8_t data, int length);
-    void read(int16_t accel[3], int16_t gyro[3]);
+    void read(uint8_t reg, uint8_t *val, int length);
     //void reset();
 
 private:
     int sclPin;
     int sdaPin;
+    i2c_inst_t *instance;
     uint8_t addresse;
 };
 

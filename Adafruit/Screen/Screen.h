@@ -41,10 +41,16 @@ class Screen {
 private:
         int blPin;
         int dcPin;
-        SPI spi;
+        SPI *spi;
+
+
+        void execute(uint8_t command, size_t len, const char *data);
+        void execute(uint8_t command);
 
 public:
-        void setBacklight(float brightness);
+        void setBacklight(uint8_t brightness);
+        void update();
+
         Screen(SPI spi, int bl, int dc);
 };
 

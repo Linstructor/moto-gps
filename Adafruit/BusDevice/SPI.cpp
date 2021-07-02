@@ -36,7 +36,6 @@ void SPI::deselectCs() {
 }
 
 void SPI::read(uint8_t add, uint8_t *buffer, uint16_t length) {
-    add |= 0x80;
     selectCs();
     spi_write_blocking(instance, &add, 1);
     spi_read_blocking(instance, 0, buffer, length);
@@ -44,7 +43,7 @@ void SPI::read(uint8_t add, uint8_t *buffer, uint16_t length) {
     deselectCs();
 }
 
-void SPI::write(uint8_t add, uint8_t data) {
+void SPI::write(uint8_t add, uint8_t data, uint8_t length) {
     uint8_t buf[2];
     buf[0] = add & 0x7f;  // remove read bit as this is a write
     buf[1] = data;

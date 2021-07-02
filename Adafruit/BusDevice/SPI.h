@@ -18,14 +18,20 @@ private :
     int csPin;
     spi_inst_t *instance;
 
-    void selectCs();
-    void deselectCs();
-
 public :
     SPI(spi_inst_t *instance, int sck, int miso, int mosi, int cs);
 
     void read(uint8_t add, uint8_t *buffer, uint16_t length);
-    void write(uint8_t add, uint8_t data);
+    void write(uint8_t add, uint8_t data, uint8_t length);
+
+    int getSCK() const { return sckPin; };
+    int getMISO() const { return misoPin; };
+    int getMOSI() const { return mosiPin; };
+    int getCS() const { return csPin; };
+    spi_inst_t *getInstance() const { return instance; };
+
+    void selectCs();
+    void deselectCs();
 };
 
 

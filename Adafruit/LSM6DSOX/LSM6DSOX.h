@@ -32,8 +32,8 @@ static int LSM6DS_DEFAULT_ADDRESS = 0x6A;
 class LSM6DSOX {
 public:
     explicit LSM6DSOX(I2C bus);
-    void getAccelerometerAndGyroscopeData(uint8_t acc[], uint8_t gyro[]);
-    void reset();
+    void getAccelerometerAndGyroscopeData(uint8_t *acc, uint8_t *gyro);
+    void testRead(uint8_t *acc1, uint8_t *acc2, uint8_t *acc3, uint8_t *acc4, uint8_t *acc5, uint8_t *acc6);
 
 
 private:

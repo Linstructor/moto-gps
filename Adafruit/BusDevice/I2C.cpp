@@ -9,7 +9,7 @@
 #include <exception>
 #include "I2C.h"
 
-I2C::I2C(int scl, int sda, uint8_t addresse) {
+I2C::I2C(int scl, int sda, uint8_t addresse, i2c_inst_t *instance) {
     gpio_set_function(scl, GPIO_FUNC_I2C);
     gpio_set_function(sda, GPIO_FUNC_I2C);
 
@@ -21,13 +21,14 @@ I2C::I2C(int scl, int sda, uint8_t addresse) {
     this->sclPin = scl;
     this->sdaPin = sda;
     this->addresse = addresse;
+    this->instance = instance;
 }
 
 void I2C::write(uint8_t data, int length) {
     i2c_write_blocking(i2c_default, this->addresse, &data, length, true);
 }
 
-void I2C::read(int16_t *accel, int16_t *gyro) {
+/*void I2C::read(int16_t *accel, int16_t *gyro) {
     uint8_t buffer[6];
 
     // Start reading acceleration registers from register 0x3B for 6 bytes
@@ -41,4 +42,9 @@ void I2C::read(int16_t *accel, int16_t *gyro) {
     i2c_write_blocking(i2c_default, this->addresse, &val, 1, true);
     i2c_read_blocking(i2c_default, this->addresse, buffer, 6, false);  // False - finished with bus
 
+}*/
+
+void I2C::read(uint8_t reg, uint8_t *val, int length) {
+    i2c_write_blocking(this->instance, this->addresse, &reg, 1, true); // true to keep master control of bus
+    i2c_read_blocking(this->instance, this->addresse, val, length, false);
 }
