@@ -46,25 +46,9 @@ int main() {
 
     debugWithLight();
 
-    //Screen screen = createScreen();
-
-    //LSM6DSOX sensor = createLSM6DSOX();
-
-    I2C i2c (15, 14, LSM6DS_DEFAULT_ADDRESS, i2c1);
-    LSM6DSOX sensor (i2c);
-
-    uint8_t acc[6];
-    uint8_t gyro[6];
-
     //printf("Starting loop\n");
     while (true) {
         debugWithLight();
-
-        sensor.getAccelerometerAndGyroscopeData(acc, gyro);
-        printf("Acc: %i, %i, %i, %i, %i, %i \n", acc[0], acc[1], acc[2], acc[3], acc[4], acc[5]);
-        sensor.testRead(&acc[0], &gyro[1], &gyro[2], &gyro[3], &gyro[4], &gyro[5]);
-        printf("Acc: %i, %i, %i, %i, %i, %i \n", gyro[0], gyro[1], gyro[2], gyro[3], gyro[4], gyro[5]);
-        //printf("Gyro: %i, %i, %i, %i, %i, %i \n", gyro[0], gyro[1], gyro[2], gyro[3], gyro[4], gyro[5]);
 
         sleep_ms(500);
     }

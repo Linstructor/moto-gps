@@ -8,8 +8,6 @@
 
 #include "../BusDevice/SPI.h"
 
-const uint16_t SDEP_MAX_PACKETSIZE = 16;
-
 // Command list
 const uint16_t SDEP_CMDTYPE_INITIALIZE = 0xBEEF; /**< Controls the on board LED(s) */
 const uint16_t SDEP_CMDTYPE_AT_WRAPPER = 0x0A00;
@@ -28,9 +26,18 @@ public:
 
 private:
     SPI spi;
+    uint8_t rstPin;
+    uint8_t irqPin;
+
     void init();
-    void execute(uint16_t command, uint8_t *buffer, uint8_t length);
+    bool execute(uint16_t command, uint8_t *buffer, uint8_t length);
     void read();
+    void sendPacket(void *buff, size_t len);
+    uint8_t sendPacket(uint8_t x);
+    void selectSCK();
+    void deselectSCK();
+    bool reset();
+    bool sendInitPattern();
 };
 
 class DataFIFO {

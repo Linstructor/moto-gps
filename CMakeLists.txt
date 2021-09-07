@@ -20,7 +20,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(gps gps.cpp Adafruit/BusDevice/SPI.cpp Adafruit/BusDevice/SPI.h Adafruit/BusDevice/I2C.cpp Adafruit/BusDevice/I2C.h Adafruit/LSM6DSOX/LSM6DSOX.cpp Adafruit/LSM6DSOX/LSM6DSOX.h Adafruit/Bluetooth/BlueFruit.cpp Adafruit/Bluetooth/BlueFruit.h Adafruit/Screen/Screen.cpp Adafruit/Screen/Screen.h)
+add_executable(gps gps.cpp Adafruit/BusDevice/SPI.cpp Adafruit/BusDevice/SPI.h Adafruit/BusDevice/I2C.cpp Adafruit/BusDevice/I2C.h Adafruit/LSM6DSOX/LSM6DSOX.cpp Adafruit/LSM6DSOX/LSM6DSOX.h Adafruit/Bluetooth/BlueFruit.cpp Adafruit/Bluetooth/BlueFruit.h Adafruit/Screen/Screen.cpp Adafruit/Screen/Screen.h Adafruit/bluefruit/Adafruit_BluefruitLE_SPI.h Adafruit/bluefruit/Adafruit_BluefruitLE_SPI.cpp Adafruit/bluefruit/utility/Adafruit_FIFO.h Adafruit/bluefruit/utility/Adafruit_FIFO.cpp Adafruit/bluefruit/utility/TimeoutTimer.h)
 
 pico_set_program_name(gps "gps")
 pico_set_program_version(gps "0.1")
